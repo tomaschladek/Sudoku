@@ -1,0 +1,39 @@
+﻿<Window x:Class="Sudoku.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sudoku"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <DataGrid Name="SudokuGrid" HeadersVisibility="None">
+        </DataGrid>
+        <Label DockPanel.Dock="Top" FontSize="18" FontWeight="Bold">Legend</Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label>Method</Label>
+            <ComboBox Name="Strategy" SelectionChanged="Strategy_OnSelectionChanged" Grid.Column="1">
+                <ComboBoxItem>None</ComboBoxItem>
+                <ComboBoxItem>Back tracking</ComboBoxItem>
+                <ComboBoxItem>Back jumping</ComboBoxItem>
+                <ComboBoxItem>MAC-Back tracking</ComboBoxItem>
+            </ComboBox>
+            <Label Grid.Row="1">Duration</Label>
+            <Label Grid.Row="1" Name="Duration" Grid.Column="1"></Label>
+            <Label Grid.Row="2">Calls</Label>
+            <Label Name="CallsCount" Grid.Row="2" Grid.Column="1"></Label>
+            <Label Grid.Row="3"> Efficiency</Label>
+            <Label Name="Efficiency" Grid.Row="3" Grid.Column="1"></Label>
+        </Grid>
+    </DockPanel>
+</Window>
