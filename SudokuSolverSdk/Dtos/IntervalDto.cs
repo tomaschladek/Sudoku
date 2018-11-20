@@ -1,6 +1,6 @@
-﻿namespace Sudoku.Dtos
+﻿namespace SudokuSolverSdk.Dtos
 {
-    public class IntervalDto
+    internal class IntervalDto
     {
         public int From { get; set; }
         public int To { get; set; }

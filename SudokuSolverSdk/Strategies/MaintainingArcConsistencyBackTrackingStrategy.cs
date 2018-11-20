@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sudoku.Dtos;
+using SudokuSolverSdk.Dtos;
 
-namespace Sudoku.Strategies
+namespace SudokuSolverSdk.Strategies
 {
-    internal class MaintainingArcConsistencyBackTrackingStrategy : AbstractStrategy, IStrategy
+    public class MaintainingArcConsistencyBackTrackingStrategy : AbstractStrategy, IStrategy
     {
         public SudokuDto Solve(SudokuDto sudoku, ref int counter)
         {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sudoku.Dtos
+namespace SudokuSolverSdk.Dtos
 {
     public class SudokuDto
     {
@@ -45,16 +45,10 @@ namespace Sudoku.Dtos
 
         }
 
-        private static int GetTo(int value)
-        {
-            var to = 3 * (value / 3 + 1);
-            return to;
-        }
-
         private static int GetFrom(int value)
         {
-            var @from = 3 * (value / 3);
-            return @from;
+            var from = 3 * (value / 3);
+            return from;
         }
 
         private bool IsValidColumn(int value, int columnIndex)

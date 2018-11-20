@@ -2,17 +2,17 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using Sudoku.Dtos;
-using Sudoku.Strategies;
+using SudokuSolverSdk.Dtos;
+using SudokuSolverSdk.Strategies;
 
 namespace Sudoku
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private SudokuDto _sudoku;
 

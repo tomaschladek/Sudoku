@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Sudoku.Dtos;
+using SudokuSolverSdk.Dtos;
 
-namespace Sudoku.Strategies
+namespace SudokuSolverSdk.Strategies
 {
     public class BackTrackingStrategy : IStrategy
     {

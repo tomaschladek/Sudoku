@@ -1,4 +1,6 @@
-﻿namespace Sudoku.Dtos
+﻿using SudokuSolverSdk.Dtos;
+
+namespace Sudoku.Dtos
 {
     public class ResultDto
     {

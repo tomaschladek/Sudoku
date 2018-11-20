@@ -1,6 +1,6 @@
-﻿using Sudoku.Dtos;
+﻿using SudokuSolverSdk.Dtos;
 
-namespace Sudoku.Strategies
+namespace SudokuSolverSdk.Strategies
 {
     public interface IStrategy
     {

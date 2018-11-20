@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sudoku.Dtos
+namespace SudokuSolverSdk.Dtos
 {
     public class CoordinatesDto : IComparable
     {
@@ -22,7 +22,7 @@ namespace Sudoku.Dtos
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (obj.GetType() != GetType()) return false;
             return Equals((CoordinatesDto) obj);
         }
 
