@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Controls;
@@ -15,23 +14,13 @@ namespace Sudoku
     public partial class MainWindow
     {
         private SudokuDto _sudoku;
+        private readonly IIoManager _ioManager;
 
         public MainWindow()
         {
             InitializeComponent();
-            _sudoku = new SudokuDto(
-                new List<IList<int>>
-                {
-                    new List<int> {0, 0, 0, 0, 0, 0, 6, 8, 0},
-                    new List<int> {0, 0, 0, 0, 7, 3, 0, 0, 9},
-                    new List<int> {3, 0, 9, 0, 0, 0, 0, 4, 5},
-                    new List<int> {4, 9, 0, 0, 0, 0, 0, 0, 0},
-                    new List<int> {8, 0, 3, 0, 5, 0, 9, 0, 2},
-                    new List<int> {0, 0, 0, 0, 0, 0, 0, 3, 6},
-                    new List<int> {9, 6, 0, 0, 0, 0, 3, 0, 8},
-                    new List<int> {7, 0, 0, 6, 8, 0, 0, 0, 0},
-                    new List<int> {0, 2, 8, 0, 0, 0, 0, 0, 0}
-                });
+            _ioManager = new IoManager();
+            _sudoku = _ioManager.GetSudoku();
 
             PopulateSudoku(new ResultDto(_sudoku,_sudoku,0,0));
         }
@@ -45,11 +34,39 @@ namespace Sudoku
 
         private void Strategy_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var timer = new Stopwatch();
-            timer.Start();
-            var counter = 0;
             var result = _sudoku;
             var original = new SudokuDto(_sudoku);
+            var strategy = GetStrategy();
+            var repetitions = 25;
+
+            var duration = GetExecutionDuration(out var counter, ref result, original, strategy, repetitions);
+            PopulateSudoku(new ResultDto(original, result, counter, duration));
+
+        }
+
+        private static long GetExecutionDuration(out int counter, ref SudokuDto result, SudokuDto original, IStrategy strategy, int repetitions)
+        {
+            counter = 0;
+            var timer = new Stopwatch();
+            timer.Start();
+
+            if (strategy != null)
+            {
+                for (int index = 0; index < repetitions; index++)
+                {
+                    result = strategy.Solve(new SudokuDto(original), ref counter);
+                }
+            }
+
+            timer.Stop();
+
+            var duration = timer.ElapsedMilliseconds == 0 ? 1 : timer.ElapsedMilliseconds / repetitions;
+            counter = counter / repetitions;
+            return duration;
+        }
+
+        private IStrategy GetStrategy()
+        {
             var strategy = default(IStrategy);
             switch (Strategy.SelectedIndex)
             {
@@ -66,18 +83,7 @@ namespace Sudoku
                     break;
             }
 
-            var repetitions = 25;
-            if (strategy != null)
-            {
-                for (int index = 0; index < repetitions; index++)
-                {
-                    result = strategy.Solve(new SudokuDto(original), ref counter);
-                }
-            }
-            timer.Stop();
-            var duration = timer.ElapsedMilliseconds == 0 ? 1 : timer.ElapsedMilliseconds/ repetitions;
-            PopulateSudoku(new ResultDto(original, result, counter/ repetitions, duration));
-
+            return strategy;
         }
     }
 }
